@@ -1,3 +1,7 @@
+<?php
+
+?>
+
 <div style="background: yellow;">
-    ERRORE! <?php extvar_dump($message); ?>
+    ERRORE! <?php var_dump($message); ?>
 </div>
