@@ -14,4 +14,8 @@ class Ruolo extends CActiveRecord {
         return parent::model($className);
     }
 
+    public static function GetTutti() {
+        return self::model()->findAll();
+    }
+
 }

@@ -30,8 +30,9 @@ class Utente extends CActiveRecord {
         return array(
             array('Nome, Cognome', 'default'),
             array('Nome, Cognome', 'length', 'max' => 50, 'tooLong' => 'Massimo 50 caratteri!'),
-            array('Email', 'email', 'message' => 'Email non valida!!!'),
+            array('Email', 'email', 'message' => 'Email non valida!!!', 'allowEmpty' => false),
             array('Abilitato', 'boolean'),
+            array('RuoloID', 'safe'),
         );
     }
 

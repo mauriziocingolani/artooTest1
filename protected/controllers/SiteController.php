@@ -13,12 +13,31 @@ class SiteController extends CController {
     }
 
     public function actionUtente($utenteid = null) {
-        $utente = Utente::GetUtenteByPk($utenteid);
+        if ($utenteid == null) :
+            $utente = new Utente;
+        else :
+            $utente = Utente::GetUtenteByPk($utenteid);
+        endif;
         if (Yii::app()->getRequest()->isPostRequest) :
+            $isNew = $utente->isNewRecord;
             $utente->setAttributes($_POST['Utente']);
-            if ($utente->validate()) :
-                $utente->save(false);
-            endif;
+            try {
+                if ($utente->save()) :
+                    $user = Yii::app()->user;
+                    if ($isNew) :
+                        $user->setFlash('success', 'Utente creato!!!');
+                        return $this->redirect(array('/utente/' . Yii::app()->db->lastInsertID));
+                    else :
+                        $user->setFlash('success', 'Utente modificato!!!');
+                        return $this->refresh();
+                    endif;
+                endif;
+            } catch (CDbException $ex) {
+                Yii::app()->user->setFlash('error', 'ERRORE: ' . $ex->getMessage());
+            } catch (Exception $ex) {
+                
+            }
+
         endif;
         $this->render('utente', array('utente' => $utente));
     }

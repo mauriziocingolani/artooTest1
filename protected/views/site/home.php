@@ -4,6 +4,8 @@
 
 <h1>Home page</h1>
 
+<?php echo CHtml::link('Crea nuovo utente', array('/utente')); ?>
+
 <table>
     <thead>
         <tr>
