@@ -3,7 +3,7 @@
 class SiteController extends CController {
 
     public function actionIndex() {
-        $utenti = Utente::GetTutti(true);
+        $utenti = Utente::GetTutti();
         $this->render('home', array('utenti' => $utenti));
     }
 
