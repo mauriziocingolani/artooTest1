@@ -1,4 +1,6 @@
-
+<?php
+/* @var $utenti Utente[] */
+?>
 
 <h1>Home page</h1>
 
@@ -22,7 +24,7 @@
             <td><?php echo $u->Email; ?></td>
             <td><?php echo $u->Abilitato; ?></td>
             <td><?php echo $u->Ruolo->Descrizione . ' (' . $u->RuoloID . ')'; ?></td>
-            <td><a href="/ArtooTest1/index.php/utente/<?php echo $u->UtenteID; ?>">Modifica</a></td>
+            <td><a href="/ArtooTest1/utente/<?php echo $u->UtenteID; ?>">Modifica</a></td>
         </tr>
     <?php endforeach; ?>
 </table>

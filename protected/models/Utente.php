@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @property Ruolo $Ruolo
+ */
 class Utente extends CActiveRecord {
 
     public $UtenteID;
@@ -23,6 +26,15 @@ class Utente extends CActiveRecord {
         );
     }
 
+    public function rules() {
+        return array(
+            array('Nome, Cognome', 'default'),
+            array('Nome, Cognome', 'length', 'max' => 50, 'tooLong' => 'Massimo 50 caratteri!'),
+            array('Email', 'email', 'message' => 'Email non valida!!!'),
+            array('Abilitato', 'boolean'),
+        );
+    }
+
     public function tableName() {
         return 'utenti';
     }
@@ -31,6 +43,11 @@ class Utente extends CActiveRecord {
         return parent::model($className);
     }
 
+    /**
+     * Restituisce tutti i record della tabella utenti.
+     * @param boolean $soloAbilitati True per restituire solo gli utenti abilitati
+     * @return Utente[] Lista degli utenti
+     */
     public static function GetTutti($soloAbilitati = false) {
         $criteria = new CDbCriteria;
         $criteria->order = 'UtenteID ASC';
