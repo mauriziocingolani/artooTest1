@@ -33,6 +33,7 @@ class Utente extends CActiveRecord {
             array('Email', 'email', 'message' => 'Email non valida!!!', 'allowEmpty' => false),
             array('Abilitato', 'boolean'),
             array('RuoloID', 'safe'),
+            array('UtenteID, Ruolo', 'safe', 'on' => 'search'),
         );
     }
 
@@ -61,6 +62,17 @@ class Utente extends CActiveRecord {
 
     public static function GetUtenteByPk($utenteid) {
         return self::model()->with('Ruolo')->findByPk($utenteid);
+    }
+
+    public function search() {
+        $criteria = new CDbCriteria();
+        $criteria->with = array('Ruolo');
+        $criteria->compare('UtenteID', $this->UtenteID);
+        $criteria->compare('Nome', $this->Nome, true);
+        $criteria->compare('Cognome', $this->Cognome, true);
+        $criteria->compare('Email', $this->Email, true);
+        $criteria->compare('Abilitato', $this->Abilitato);
+        return new CActiveDataProvider($this, array('criteria' => $criteria));
     }
 
 }

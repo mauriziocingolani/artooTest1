@@ -2,9 +2,27 @@
 
 class SiteController extends CController {
 
+    public function accessRules() {
+        return array(
+            array('allow',
+                'message' => 'Non sei autorizzato a visualizzare la pagina...',
+            ),
+        );
+    }
+
+    public function filters() {
+        return array(
+            'accessControl',
+        );
+    }
+
     public function actionIndex() {
-        $utenti = Utente::GetTutti();
-        $this->render('home', array('utenti' => $utenti));
+        $model = new Utente('search');
+        $model->unsetAttributes();
+        if (isset($_GET['Utente'])) :
+            $model->attributes = $_GET['Utente'];
+        endif;
+        $this->render('home', array('model' => $model));
     }
 
     public function actionError() {

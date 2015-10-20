@@ -19,6 +19,9 @@ return array(
                 'utente/<utenteid:[0-9]+>' => 'site/utente',
             ),
         ),
+        'authManager' => array(
+            'class' => 'CPhpAuthManager',
+        ),
         'db' => array(
             'connectionString' => 'mysql:host=localhost;dbname=utenti',
             'username' => 'maurizio',
