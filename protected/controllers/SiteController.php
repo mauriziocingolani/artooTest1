@@ -3,10 +3,7 @@
 class SiteController extends CController {
 
     public function actionIndex() {
-        $utenti = Utente::model()->findAll(array(
-            'condition' => 'Abilitato=1',
-            'order' => 'UtenteID ASC',
-        ));
+        $utenti = Utente::GetTutti(true);
         $this->render('home', array('utenti' => $utenti));
     }
 
@@ -16,7 +13,7 @@ class SiteController extends CController {
     }
 
     public function actionUtente($utenteid = null) {
-        $utente = Utente::model()->findByPk($utenteid);
+        $utente = Utente::GetUtenteByPk($utenteid);
         var_dump($utente->Ruolo->Descrizione);
     }
 

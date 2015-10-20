@@ -31,4 +31,18 @@ class Utente extends CActiveRecord {
         return parent::model($className);
     }
 
+    public static function GetTutti($soloAbilitati = false) {
+        $criteria = new CDbCriteria;
+        $criteria->order = 'UtenteID ASC';
+        if ($soloAbilitati === true) :
+            $criteria->addCondition('Abilitato=:abilitato');
+            $criteria->params = array(':abilitato' => true);
+        endif;
+        return self::model()->with('Ruolo')->findAll($criteria);
+    }
+
+    public static function GetUtenteByPk($utenteid) {
+        return self::model()->with('Ruolo')->findByPk($utenteid);
+    }
+
 }
