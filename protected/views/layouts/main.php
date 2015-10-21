@@ -10,6 +10,12 @@
 
         <div class="container" id="page">
             <?php echo $content; ?>
+
+            <hr />
+            <footer>
+                Footer...
+            </footer>
+
         </div>
 
     </body>

@@ -41,5 +41,9 @@ return array(
                 ),
             ),
         ),
+        'user' => array(
+            'class' => 'CWebUser',
+            'loginUrl' => null,
+        ),
     ),
 );

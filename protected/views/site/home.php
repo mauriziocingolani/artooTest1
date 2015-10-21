@@ -17,11 +17,12 @@ $this->widget('zii.widgets.grid.CGridView', array(
         array(
             'header' => 'Indirizzo email',
             'name' => 'Email',
-            'value' => 'CHtml::link($data->Email,array("mailto: $data->UtenteID"))',
+            'value' => 'CHtml::link($data->Email,array("/utente/$data->UtenteID"))',
             'type' => 'raw',
         ),
         'Abilitato',
         array(
+            'name' => 'RuoloSearch',
             'header' => 'Ruolo',
             'value' => 'strtoupper($data->Ruolo->Descrizione)',
         ),

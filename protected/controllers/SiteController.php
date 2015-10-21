@@ -5,7 +5,10 @@ class SiteController extends CController {
     public function accessRules() {
         return array(
             array('allow',
-                'message' => 'Non sei autorizzato a visualizzare la pagina...',
+                'actions' => array('denied', 'error', 'index'),
+            ),
+            array('deny',
+                'deniedCallback' => array($this, 'actionDenied'),
             ),
         );
     }
@@ -58,6 +61,10 @@ class SiteController extends CController {
 
         endif;
         $this->render('utente', array('utente' => $utente));
+    }
+
+    public function actionDenied() {
+        throw new CHttpException(403, 'Non sei autorizzato a visualizzare questa pagina.');
     }
 
 }
