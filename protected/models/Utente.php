@@ -11,6 +11,7 @@ class Utente extends CActiveRecord {
     public $Cognome;
     public $Email;
     public $Abilitato;
+    public $RuoloSearch;
 
     public function attributeLabels() {
         return array(
@@ -33,7 +34,7 @@ class Utente extends CActiveRecord {
             array('Email', 'email', 'message' => 'Email non valida!!!', 'allowEmpty' => false),
             array('Abilitato', 'boolean'),
             array('RuoloID', 'safe'),
-            array('UtenteID, Ruolo', 'safe', 'on' => 'search'),
+            array('UtenteID, RuoloSearch', 'safe', 'on' => 'search'),
         );
     }
 
@@ -72,7 +73,19 @@ class Utente extends CActiveRecord {
         $criteria->compare('Cognome', $this->Cognome, true);
         $criteria->compare('Email', $this->Email, true);
         $criteria->compare('Abilitato', $this->Abilitato);
-        return new CActiveDataProvider($this, array('criteria' => $criteria));
+        $criteria->compare('Ruolo.Descrizione', $this->RuoloSearch, true);
+        return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+            'sort' => array(
+                'attributes' => array(
+                    'RuoloSearch' => array(
+                        'asc' => 'Ruolo.Descrizione ASC',
+                        'desc' => 'Ruolo.Descrizione DESC',
+                    ),
+                    '*',
+                )
+            ),
+        ));
     }
 
 }
